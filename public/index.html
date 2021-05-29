@@ -17,6 +17,27 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+
+    const renderUser = (el, user) => {
+      const btn = document.createElement('button');
+      const textNode = document.createElement(user);
+
+      btn.setAttribute('onclick', `createElement('${user}')`);
+      btn.appendChild(textNode);
+      el.appendChild(btn);
+    };
+
+    const getUsersAndRender = (el) => async () => {
+      const response = await fetch('/users', { method: 'GET' });
+      const jsonResponse = await response.json();
+      jsonResponse.forEach(user => renderUser(el, user[0]));
+    };
+
+    const usersEl = document.getElementById('users');
+
+    socket.on('user:joined', (id) => renderUser(usersEl, id));
+
+    window.addEventListener('load', getUsersAndRender(usersEl));
   </script>
 </body>
 
