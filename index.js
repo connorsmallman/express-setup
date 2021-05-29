@@ -1,16 +1,14 @@
+const http = require('http');
+const path = require('path');
 const express = require('express');
-const port = 3000;
+const { Server: SocketIO } = require('socket.io');
 
 const app = express();
+const server = http.createServer(app);
 
-app.get('/', (req, res) => {
-  res.send('hello world');
-});
+const io = new SocketIO(server);
+const PORT = process.env.PORT || 8000;
 
-app.get('/greeting/:name', (req, res) => {
-  res.send(`Welcome ${req.params.name}`);
-});
+app.use(express.static(path.resolve('./public')));
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
+server.listen(PORT, () => console.log(`Server started at PORT: ${PORT}`));
