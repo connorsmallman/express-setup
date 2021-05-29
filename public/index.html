@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <h3>Your Id: <span id="myId"></span></h3>
+    <h3>Online Users (click to connect)</h3>
+    <div id="users"></div>
+    <video id="localVideo"></video>
+    <video id="remoteVideo"></video>
+    <p id="status"></p>
+  </main>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+  </script>
+</body>
+
+</html>
